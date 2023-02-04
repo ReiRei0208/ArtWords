@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtWords</title>
+
+  <style>
+    input {
+      padding: 10px;
+      /* margin-bottom: 10px; */
+      /* border: none; */
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+      width: 100%;
+      height: 40px;
+    }
+    .tp {
+      font-size: 150%;
+      margin:0 auto;
+      margin-top: 20px;
+      width:90%;
+      }
+    .bl {
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px #ccc;
+      border-radius: 10px;
+      }
+      
+      a {text-decoration: none}
+
+      a:link {color:darkgrey;} /* 未访问链接*/
+
+      a:visited {color:darkgrey;} /* 已访问链接 */
+
+      a:hover {color: red;} /* 鼠标移动到链接上 */
+
+      a:active {color:red;} /* 鼠标点击时 */
+
+    .check {
+        /* margin-top: -30px !important;
+        margin-bottom: -1000px !important; */
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    input[type=checkbox] {
+      visibility: hidden;
+    }
+    /**
+ * Checkbox Five
+ */
+ .checkboxFive {
+      width: 25px;
+      margin: 0 auto;
+      position: relative;
+    }
+ 
+    /**
+ * Create the box for the checkbox
+ */
+    .checkboxFive label {
+      cursor: pointer;
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      top: -25px;
+      left: 1px;
+      background: #eee;
+      border: 1px solid #ddd;
+    }
+ 
+    /**
+ * Display the tick inside the checkbox
+ */
+    .checkboxFive label:after {
+      opacity: 0.2;
+      content: '';
+      position: absolute;
+      width: 9px;
+      height: 5px;
+      /* 内容为透明 */
+      background: transparent;
+      top: 6px;
+      left: 7px;
+      /* 四条边框的样式 */
+      border: 3px solid #333;
+      border-top: none;
+      border-right: none;
+/* 旋转 */
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+ 
+    /**
+ * Create the hover event of the tick
+ */
+    .checkboxFive label:hover::after {
+      opacity: 0.5;
+    }
+ 
+    /**
+ * Create the checkbox state for the tick
+ */
+    .checkboxFive input[type=checkbox]:checked+label:after {
+      opacity: 1;
+    }
+  </style>
+
+<script type="text/javascript">
+    //屏蔽右键菜单
+    document.oncontextmenu = function (event){
+        if(window.event){
+            event = window.event;
+        }try{
+            var the = event.srcElement;
+            if (!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")){
+                return false;
+            }
+            return true;
+        }catch (e){
+            return false; 
+        } 
+    }
+    
+    // 屏蔽剪切
+    document.oncut = function (event){
+        if(window.event){
+            event = window.event;
+        }try{
+            var the = event.srcElement;
+            if(!((the.tagName == "INPUT" && the.type.toLowerCase() == "text") || the.tagName == "TEXTAREA")){
+                return false;
+            }
+            return true;
+        }catch (e){
+            return false;
+        }
+    }
+
+    //屏蔽保存
+    window.addEventListener("keydown", function (e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+        }
+    }, false);
+
+    // 屏蔽F12
+    document.onkeydown = document.onkeyup = document.onkeypress = function(event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e && e.keyCode == 123) {
+            e.returnValue = false;
+            return (false);
+        }
+    }
+
+    // 防浏览器内嵌控制台
+    function resize(){
+        var threshold = 200;
+        var widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        var heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        if(widthThreshold || heightThreshold){
+           location.replace("https://pagewarn.netlify.app/",'_blank')
+        }
+    }
+    window.addEventListener('resize', resize);
+    resize()
+
+</script>
+
+</head>
+<body>
+
+  <div class="bl">
+    <h3>欢迎</h3>
+    <p>这里是一个高度自定义且简洁的造词器</p>
+    <p>欢迎提供意见、报错反馈awa</p>
+    <p>我们的语言交流群：<a href="https://jq.qq.com/?_wv=1027&k=RRBcLZKs" target="_blank">735650876</a></p>
+    </p>
+  </div>
+
+  <span style="padding: 60px;"></span>
+  
+  <div class="bl">
+    <h3>教学</h3>
+    <p>这是一份快速入手书册，请收好！</p>
+    
+    <h4>一、组词法则</h4>
+    <p>&emsp;&emsp;即构成单个音节的结构。这个结构应由4个英文字母“a,b,r,n”与一对完整的中括号“[]”组成。在填写时，英文字母表示相对应的字母成分，中括号则表示括号内的字母成分非必须出现在当前音节结构内。</p>
+    </p>
+    
+    <h4>二、组成成分</h4>
+    <p>&emsp;&emsp;即组成音节结构的字母成分。这些字母成分用4个英文字母“a,b,r,n”组成，分别表示“元音”、“拼音”、“辅音”、“补音”。在填写时，用斜杠“/”分隔每个字母，字母可以不止一个字符的长度。
+    </p>
+    
+    <h4>三、生成参数</h4>
+    <p>&emsp;<b>①音节数</b></p>
+    <p>&emsp;&emsp;&emsp;即生成单词时单个音节结构的数量。</p>
+
+    <p>&emsp;<b>②长度最值</b></p>
+    <p>&emsp;&emsp;&emsp;即生成单词时的最长字符数。</p>
+
+    <p>&emsp;<b>③生成词数</b></p>
+    <p>&emsp;&emsp;&emsp;即一次性生成的单词数量。</p>
+
+    <p>&emsp;<b>④区分重复</b></p>
+    <p>&emsp;&emsp;&emsp;即禁止生成的单词出现相同的情况。</p>
+
+  </div>
+
+  <span style="padding: 60px;"></span>
+
+  <div class="bl">
+    <h3>控制台</h3>
+    <form onsubmit="false">
+        <h4>法则</h4>
+        <input type="text" id="rule" placeholder="必填" value="[a][b][r]a[n]" />
+    </form>
+    <form onsubmit="false">
+        <h4>组成</h4>
+        <p>元音(a)</p>
+        <input type="text" id="a" placeholder="必填" value="a/e/i/o/u" />
+        <p>拼音(b)</p>
+        <input type="text" id="b" placeholder="必填" value="b/c/d/f/g/h/i/j/k/l/m/n/p/q/r/s/t/v/w/x/y/z" />
+        <p>辅音(r)</p>
+        <input type="text" id="r" placeholder="必填" value="l/r" />
+        <p>补音(n)</p>
+        <input type="text" id="n" placeholder="必填" value="m/n/l/r" />
+    </form>
+    <form onsubmit="false">
+        <h4>参数</h4>
+        <p>音节数</p>
+        <input type="number" id="syllable" placeholder="必填" value="1" />
+        <p>长度最值</p>
+        <input type="number" id="long" placeholder="必填" value="5" />
+        <p>生成词数</p>
+        <input type="number" id="number" placeholder="必填" value="10" />
+    </form>
+    <p>区分重复</p>
+    <span class="checkboxFive">
+        <input type="checkbox" id="checkboxFiveInput" name="" />
+        <label for="checkboxFiveInput"></label>
+    </span>
+  </div>
+
+  <span style="padding: 60px;"></span>
+
+  <div class="bl">
+    <h4>生成</h4>
+    <form>
+        <input style="width: 200px;" id="but" type="button" value="立刻生成" onclick="make()" />
+    </form>
+    <div class="tp" id="get"></div>
+  </div>
+
+  <script>
+
+    // 函数
+
+    // 获取随机项
+    function listsGetRandomItem(list, remove) {
+        var x = Math.floor(Math.random() * list.length);
+        if (remove) {
+            return list.splice(x, 1)[0];
+        } else {
+            return list[x];
+        }
+    }
+
+    // 拆分输入rule
+    function splitStr(str) {
+        let res = [];
+        let temp = '';
+        let left = 0;
+        let right = 0;
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] === '[') {
+            left++;
+            } else if (str[i] === ']') {
+            right++;
+            if (left === right) {
+                res.push("*" + temp);
+                temp = '';
+            }
+            } else {
+            if (left === right) {
+                res.push(str[i]);
+            } else {
+                temp += str[i];
+            }
+            }
+        }
+        return res;
+    }
+
+    // 拆分“/”输入字母
+    function splitSlash(str) {
+        return str.split('/');
+    }
+
+    // 检测类
+    function detectionClass(class2) {
+        const vowel = splitSlash(document.getElementById('a').value);
+        const pin = splitSlash(document.getElementById('b').value);
+        const con = splitSlash(document.getElementById('r').value);
+        const com = splitSlash(document.getElementById('n').value);
+
+        switch (class2) {
+            case 'a':
+                return listsGetRandomItem(vowel, false);
+            case 'b':
+                return listsGetRandomItem(pin, false);
+            case 'r':
+                return listsGetRandomItem(con, false);
+            case 'n':
+                return listsGetRandomItem(com, false);
+            default:
+                return '';
+        }
+    }
+
+    // 历遍法则并组合
+    function ergodicRule(rules) {
+        resalt = '';
+        var i_end = rules.length;
+        var i_inc = 1;
+        if (1 > i_end) {
+            i_inc = -i_inc;
+        }
+        for (i = 1; i_inc >= 0 ? i <= i_end : i >= i_end; i += i_inc) {
+            if (rules[(i - 1)].length == 1) {
+                resalt += String(detectionClass(rules[(i - 1)]));
+            } else if (rules[(i - 1)].length > 1 && Math.random() <= 0.5) {
+                var j_end = rules[(i - 1)].length;
+                var j_inc = 1;
+                if (1 > j_end) {
+                    j_inc = -j_inc;
+                }
+                for (j = 1; j_inc >= 0 ? j <= j_end : j >= j_end; j += j_inc) {
+                    resalt += String(detectionClass(rules[(i - 1)].charAt((j - 1))));
+                }
+            }
+        }
+        return resalt;
+    }
+
+    // 检测输出
+    function make() {
+        // 获取数值
+        const syllable = Number(document.getElementById('syllable').value);
+        const long = Number(document.getElementById('long').value);
+        const number = Number(document.getElementById('number').value);
+        const rule = splitStr(document.getElementById('rule').value);
+        // 赋值输出
+        let rade = [];
+        for (let i = 0; i < number; i++) {
+            let t = '';
+            for (var count = 0; count < syllable; count++) {
+                t += String(ergodicRule(rule));
+            }
+            if (document.getElementById('checkboxFiveInput').checked) {
+                while (!(t.length <= long) && !(rade.includes(t))) {
+                        t = '';
+                        for (var count = 0; count < syllable; count++) {
+                            t += String(ergodicRule(rule));
+                        }
+                }
+            }else{
+                while (!(t.length <= long)) {
+                        t = '';
+                        for (var count = 0; count < syllable; count++) {
+                            t += String(ergodicRule(rule));
+                        }
+                } 
+            }
+            
+            rade.push(t);
+        }
+        // 最终输出
+        let out = "";
+        for (let i = 0; i < rade.length; i++) {
+            out += "<div>" + rade[i] + "</div>"
+        }
+
+        document.getElementById("get").innerHTML = out;
+
+
+
+
+        // 小纪念
+        // var v = ergodicRule(rule)
+        // console.log(rade);
+        
+        return false;
+    }
+
+
+  </script>
+
+</body>
