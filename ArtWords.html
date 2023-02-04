@@ -190,28 +190,32 @@
   
   <div class="bl">
     <h3>教学</h3>
-    <p>这是一份快速入手书册，请收好！</p>
+    <p>这是一份<b>快速入手</b>教程，请收好！</p>
     
     <h4>一、组词法则</h4>
-    <p>&emsp;&emsp;即构成单个音节的结构。这个结构应由4个英文字母“a,b,r,n”与一对完整的中括号“[]”组成。在填写时，英文字母表示相对应的字母成分，中括号则表示括号内的字母成分非必须出现在当前音节结构内。</p>
+    <p>&emsp;&emsp;即构成单个音节的结构。这个结构应由4个英文字母<b>“a,b,r,n”</b>与一对<b>完整</b>的<b>中括号“[]”</b>组成。在填写时，英文字母表示相对应的字母成分，中括号则表示括号内的字母成分<b>非必须</b>出现在当前音节结构内。</p>
     </p>
     
     <h4>二、组成成分</h4>
-    <p>&emsp;&emsp;即组成音节结构的字母成分。这些字母成分用4个英文字母“a,b,r,n”组成，分别表示“元音”、“拼音”、“辅音”、“补音”。在填写时，用斜杠“/”分隔每个字母，字母可以不止一个字符的长度。
+    <p>&emsp;&emsp;即组成音节结构的字母成分。这些字母成分用4个英文字母<b>“a,b,r,n”</b>组成，分别表示<b>“元音”、“拼音”、“辅音”、“补音”</b>。在填写时，用<b>斜杠“/”</b>分隔每个字母，字母可以<b>不止</b>一个字符的长度。
     </p>
     
     <h4>三、生成参数</h4>
     <p>&emsp;<b>①音节数</b></p>
-    <p>&emsp;&emsp;&emsp;即生成单词时单个音节结构的数量。</p>
+    <p>&emsp;&emsp;&emsp;即生成单词时<b>单个</b>音节结构的数量。</p>
 
     <p>&emsp;<b>②长度最值</b></p>
-    <p>&emsp;&emsp;&emsp;即生成单词时的最长字符数。</p>
+    <p>&emsp;&emsp;&emsp;即生成单词时的<b>最长</b>字符数。</p>
 
     <p>&emsp;<b>③生成词数</b></p>
-    <p>&emsp;&emsp;&emsp;即一次性生成的单词数量。</p>
+    <p>&emsp;&emsp;&emsp;即<b>一次性</b>生成的单词数量。</p>
 
-    <p>&emsp;<b>④区分重复</b></p>
-    <p>&emsp;&emsp;&emsp;即禁止生成的单词出现相同的情况。</p>
+    <h4>四、限值输出</h4>
+    <p>&emsp;<b>①元素自裁</b></p>
+    <p>&emsp;&emsp;&emsp;即<b>禁止</b>生成的单词包含<b>自裁的元素</b>。</p>
+
+    <p>&emsp;<b>②区分重复</b></p>
+    <p>&emsp;&emsp;&emsp;即<b>禁止</b>生成的单词出现<b>相同</b>的情况。</p>
 
   </div>
 
@@ -222,8 +226,8 @@
     <form onsubmit="false">
         <h4>法则</h4>
         <input type="text" id="rule" placeholder="必填" value="[a][b][r]a[n]" />
-    </form>
-    <form onsubmit="false">
+        
+
         <h4>组成</h4>
         <p>元音(a)</p>
         <input type="text" id="a" placeholder="必填" value="a/e/i/o/u" />
@@ -233,8 +237,8 @@
         <input type="text" id="r" placeholder="必填" value="l/r" />
         <p>补音(n)</p>
         <input type="text" id="n" placeholder="必填" value="m/n/l/r" />
-    </form>
-    <form onsubmit="false">
+        
+
         <h4>参数</h4>
         <p>音节数</p>
         <input type="number" id="syllable" placeholder="必填" value="1" />
@@ -242,6 +246,11 @@
         <input type="number" id="long" placeholder="必填" value="5" />
         <p>生成词数</p>
         <input type="number" id="number" placeholder="必填" value="10" />
+
+
+        <h4>输出</h4>
+        <p>元素自裁</p>
+        <input type="text" id="elem" placeholder="选填" value="aa/ii/qq/ww" />
     </form>
     <p>区分重复</p>
     <span class="checkboxFive">
@@ -351,6 +360,22 @@
         return resalt;
     }
 
+    // 元素自裁
+    function selfDet(t2) {
+        const elem =  splitSlash(document.getElementById('elem').value);
+        let count2 = false;
+
+        if (elem != "") {
+            for (let i = 0; i < elem.length; i++) {
+                if (t2.indexOf(elem[i]) != -1) {
+                    count2 = true;
+                }
+            }
+        }
+        
+        return count2;
+    }
+
     // 检测输出
     function make() {
         // 获取数值
@@ -366,14 +391,14 @@
                 t += String(ergodicRule(rule));
             }
             if (document.getElementById('checkboxFiveInput').checked) {
-                while (!(t.length <= long) && !(rade.includes(t))) {
+                while (!(t.length <= long) || (selfDet(t)) || (rade.includes(t))) {
                         t = '';
                         for (var count = 0; count < syllable; count++) {
                             t += String(ergodicRule(rule));
                         }
                 }
             }else{
-                while (!(t.length <= long)) {
+                while (!(t.length <= long) || (selfDet(t))) {
                         t = '';
                         for (var count = 0; count < syllable; count++) {
                             t += String(ergodicRule(rule));
